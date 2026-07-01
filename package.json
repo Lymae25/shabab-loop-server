@@ -1,0 +1,16 @@
+{
+  "name": "shabab-loop-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shabab Loop Around Europa - roadtrip site + sikker Claude chat-backend",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

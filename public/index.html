@@ -1,0 +1,1783 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shabab Loop Around Europa · Uge 31, 2026</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1B2430">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#1B2430;
+    --asphalt-2:#242F3E;
+    --parchment:#F3EEE3;
+    --parchment-2:#EAE2D2;
+    --ink:#24242B;
+    --ink-soft:#5B5A54;
+    --yellow:#F4B400;
+    --teal:#1F7A72;
+    --teal-soft:#E4EFEC;
+    --orange:#E15D2F;
+    --line:#D8CFB9;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Work Sans', -apple-system, sans-serif;
+    line-height:1.5;
+    padding-bottom:env(safe-area-inset-bottom);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Big Shoulders Display', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    font-weight:800;
+    margin:0;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:var(--teal);}
+
+  /* ---- Sticky trip bar ---- */
+  .tripbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--asphalt); color:#fff;
+    padding:10px 16px; padding-top:calc(10px + env(safe-area-inset-top));
+    border-bottom:3px solid var(--yellow);
+    font-family:'Big Shoulders Display', sans-serif;
+  }
+  .tripbar .name{font-size:15px; font-weight:800; letter-spacing:0.03em;}
+  .tripbar .cd{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--yellow); font-weight:600;}
+
+  /* ---- Hero ---- */
+  .hero{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(244,180,0,0.14), transparent 45%),
+      linear-gradient(180deg, var(--asphalt), var(--asphalt-2));
+    color:#fff;
+    padding:52px 20px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:10px;
+    background-image: repeating-linear-gradient(90deg, var(--yellow) 0 26px, transparent 26px 46px);
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.12em;
+    color:var(--yellow);
+    background:rgba(244,180,0,0.1);
+    border:1px solid rgba(244,180,0,0.35);
+    padding:5px 10px; border-radius:100px;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(42px, 12vw, 64px);
+    line-height:0.92;
+    margin-bottom:10px;
+  }
+  .hero h1 span{color:var(--yellow);}
+  .hero p.sub{
+    max-width:44ch; color:#C9CEDA; font-size:15.5px; margin-bottom:26px;
+  }
+  .statrow{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px; background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:var(--radius); overflow:hidden;
+    margin-bottom:24px;
+  }
+  .statrow div{background:var(--asphalt-2); padding:14px 10px; text-align:center;}
+  .statrow .num{font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:600; color:var(--yellow);}
+  .statrow .lbl{font-size:10.5px; color:#9AA2B2; text-transform:uppercase; letter-spacing:0.08em; margin-top:2px;}
+
+  .countdown{
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .countdown .chip{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:10px; padding:10px 12px; min-width:62px; text-align:center;
+  }
+  .countdown .chip b{display:block; font-family:'JetBrains Mono',monospace; font-size:20px; color:#fff;}
+  .countdown .chip span{font-size:9.5px; color:#9AA2B2; text-transform:uppercase; letter-spacing:0.08em;}
+
+  .banana-tag{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px;
+    color:#1B2430; background:var(--yellow);
+    padding:6px 12px; border-radius:100px; font-weight:700;
+    transform:rotate(-1.5deg);
+    margin-bottom:16px;
+  }
+
+  .crew{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;}
+  .crewchip{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600;
+    color:#fff; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.18);
+    padding:7px 12px; border-radius:100px;
+  }
+  .crewchip.wildcard{border-color:var(--orange); color:var(--yellow);}
+  .crewchip small{opacity:0.7; font-weight:400;}
+
+  /* ---- Quick nav ---- */
+  .quicknav{
+    display:flex; gap:8px; overflow-x:auto;
+    padding:14px 16px; background:var(--parchment);
+    border-bottom:1px solid var(--line);
+    -webkit-overflow-scrolling:touch;
+  }
+  .quicknav::-webkit-scrollbar{display:none;}
+  .quicknav a{
+    flex:0 0 auto;
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--ink); text-decoration:none;
+    background:#fff; border:1px solid var(--line); border-radius:100px;
+    padding:8px 14px;
+  }
+
+  section{padding:40px 18px;}
+  .kicker{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em;
+    color:var(--teal); text-transform:uppercase; margin-bottom:6px; display:block; font-weight:600;
+  }
+  .sectitle{font-size:clamp(30px,8vw,40px); margin-bottom:6px;}
+  .secdesc{color:var(--ink-soft); max-width:52ch; margin-bottom:28px; font-size:15px;}
+
+  /* ---- Route timeline ---- */
+  .route{position:relative; padding-left:44px;}
+  .route::before{
+    content:"";
+    position:absolute; left:16px; top:6px; bottom:6px; width:4px;
+    background-image: repeating-linear-gradient(180deg, var(--yellow) 0 14px, transparent 14px 24px);
+    background-color:var(--teal);
+    border-radius:4px;
+  }
+  .stop{position:relative; margin-bottom:14px;}
+  .stop .shield{
+    position:absolute; left:-44px; top:14px;
+    width:34px; height:34px; border-radius:9px;
+    background:var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:15px;
+    border:3px solid var(--parchment);
+    box-shadow:0 0 0 2px var(--teal);
+  }
+  .stop.buffer .shield{background:var(--ink-soft); box-shadow:0 0 0 2px var(--ink-soft);}
+  .stopcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .stopcard summary{
+    list-style:none; cursor:pointer;
+    padding:14px 16px; display:flex; justify-content:space-between; align-items:center; gap:10px;
+  }
+  .stopcard summary::-webkit-details-marker{display:none;}
+  .stopcard .datehead{display:flex; flex-direction:column;}
+  .stopcard .day{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
+  .stopcard .city{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:21px; text-transform:uppercase;}
+  .stopcard .drive{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--teal); font-weight:600;
+    background:var(--teal-soft); padding:5px 9px; border-radius:8px; white-space:nowrap;
+  }
+  .chevron{transition:transform .2s ease; color:var(--ink-soft); flex:0 0 auto;}
+  .stopcard[open] .chevron{transform:rotate(180deg);}
+  .stopbody{padding:0 16px 18px; border-top:1px solid var(--line);}
+  .stopbody p{margin:14px 0 0; font-size:14.5px; color:var(--ink);}
+  .stopbody .tip{
+    margin-top:12px; font-size:13px; color:var(--ink-soft);
+    background:var(--parchment-2); border-left:3px solid var(--yellow);
+    padding:8px 10px; border-radius:6px;
+  }
+  .nickname{
+    font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase;
+    letter-spacing:.05em; color:var(--orange); font-weight:700; margin-bottom:2px; display:block;
+  }
+  .maplink{
+    display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:600;
+    color:var(--teal); text-decoration:none;
+    background:var(--teal-soft); padding:8px 12px; border-radius:8px;
+  }
+  .mapwrap{
+    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    margin-bottom:14px; background:#fff;
+  }
+  .mapwrap iframe{display:block; width:100%; height:300px; border:0;}
+  .mapbtn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; text-transform:uppercase;
+    letter-spacing:.03em; text-decoration:none;
+    background:var(--yellow); color:#1B2430;
+    padding:12px 18px; border-radius:100px; margin-bottom:28px;
+  }
+
+  /* ---- Parking ---- */
+  .parklist{display:flex; flex-direction:column; gap:10px;}
+  .parkcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:15px 16px;
+  }
+  .parktop{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:6px;}
+  .parktop .pcity{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--teal); font-weight:700; display:block; margin-bottom:2px;}
+  .parktop .pname{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:19px; text-transform:uppercase;}
+  .parktop .pprice{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--orange);
+    background:#FCEDE6; padding:5px 9px; border-radius:8px; white-space:nowrap;
+  }
+  .parkcard p{margin:0 0 10px; font-size:13.5px; color:var(--ink-soft);}
+  .parknote{
+    margin-top:18px; font-size:12.5px; color:var(--ink-soft); font-style:italic;
+  }
+
+  /* ---- Camper card ---- */
+  .camperwrap{background:var(--asphalt); color:#fff;}
+  .camperwrap .kicker{color:var(--yellow);}
+  .camperwrap .secdesc{color:#B9C0CE;}
+  .campercard{
+    background:var(--asphalt-2); border:1px solid rgba(255,255,255,0.1);
+    border-radius:var(--radius); padding:20px;
+  }
+  .campertop{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px;}
+  .campertop h3{font-size:24px;}
+  .badge{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase;
+    background:var(--yellow); color:#1B2430; padding:4px 8px; border-radius:6px; font-weight:700;
+  }
+  .specs{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;}
+  .specs span{
+    font-size:12px; font-family:'JetBrains Mono',monospace; color:#C9CEDA;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    padding:6px 10px; border-radius:100px;
+  }
+  .priceline{display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; padding-top:16px; border-top:1px dashed rgba(255,255,255,0.16);}
+  .priceline .amount{font-family:'JetBrains Mono',monospace; font-size:26px; color:var(--yellow); font-weight:600;}
+  .priceline .sub{font-size:11.5px; color:#9AA2B2;}
+
+  /* ---- Parking booking buttons ---- */
+  .parklinks{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .parklinks a{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; text-decoration:none;
+    padding:8px 12px; border-radius:8px;
+  }
+  .parklinks .book{background:var(--teal); color:#fff;}
+  .parklinks .locate{background:var(--parchment-2); color:var(--ink);}
+
+  /* ---- Skema & beregner ---- */
+  .schedlist{display:flex; flex-direction:column; gap:10px;}
+  .schedcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .schedtop{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
+  .schedtop .sname{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:16px; text-transform:uppercase;}
+  .schedtop .sdate{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); display:block; margin-top:2px;}
+  .schedplan{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:10px;}
+  .schedplan div{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-soft);}
+  .schedplan b{color:var(--ink); font-weight:700;}
+  .schedinput{display:flex; flex-direction:column; gap:6px; margin-bottom:8px;}
+  .schedinput label{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft);}
+  .schedinput input{
+    font-family:'JetBrains Mono',monospace; font-size:14px; padding:9px 10px;
+    border:1px solid var(--line); border-radius:8px; background:var(--parchment); color:var(--ink);
+  }
+  .schedstatus{
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700;
+    padding:8px 10px; border-radius:8px; display:none;
+  }
+  .schedstatus.ontime{display:block; background:var(--teal-soft); color:var(--teal);}
+  .schedstatus.late{display:block; background:#FCE8E0; color:var(--orange);}
+  .schedstatus.early{display:block; background:var(--teal-soft); color:var(--teal);}
+  .schedreset{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--ink-soft);
+    background:none; border:1px solid var(--line); border-radius:100px; padding:8px 14px;
+    margin-top:8px; cursor:pointer;
+  }
+
+  /* ---- Option toggle ---- */
+  .opttoggle{
+    display:flex; gap:8px; padding:16px 18px 0;
+    background:var(--parchment);
+  }
+  .optbtn{
+    flex:1; text-align:center; cursor:pointer;
+    font-family:'Big Shoulders Display',sans-serif; font-weight:800; text-transform:uppercase; font-size:15px;
+    padding:14px 10px; border-radius:12px; border:2px solid var(--line);
+    background:#fff; color:var(--ink-soft);
+  }
+  .optbtn small{display:block; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:10.5px; text-transform:none; letter-spacing:0; margin-top:2px;}
+  .optbtn.active{background:var(--asphalt); color:#fff; border-color:var(--asphalt);}
+  .optbtn.active small{color:var(--yellow);}
+  .opt-block{display:none;}
+  .opt-block.active{display:block;}
+
+  /* ---- Compare cards ---- */
+  .comparegrid{display:flex; flex-direction:column; gap:14px;}
+  .comparecard{
+    background:#fff; border:2px solid var(--line); border-radius:var(--radius); padding:18px 16px;
+  }
+  .comparecard.opt1{border-color:var(--teal);}
+  .comparecard.opt2{border-color:var(--orange);}
+  .comparetop{display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;}
+  .comparetop h3{font-size:21px;}
+  .comparetop .ctag{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:100px;}
+  .comparecard.opt1 .ctag{background:var(--teal-soft); color:var(--teal);}
+  .comparecard.opt2 .ctag{background:#FCE8E0; color:var(--orange);}
+  .comparepath{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-soft); margin-bottom:12px;}
+  .prosconswrap{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .proscons b{display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;}
+  .proscons.pros b{color:var(--teal);}
+  .proscons.cons b{color:var(--orange);}
+  .proscons ul{margin:0; padding-left:16px; font-size:12.5px; color:var(--ink); line-height:1.5;}
+  .proscons li{margin-bottom:4px;}
+
+  /* ---- Budget ---- */
+  .toggle{
+    display:inline-flex; background:#fff; border:1px solid var(--line); border-radius:100px;
+    padding:3px; margin-bottom:20px;
+  }
+  .toggle button{
+    font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.04em;
+    border:none; background:transparent; padding:8px 16px; border-radius:100px; cursor:pointer;
+    color:var(--ink-soft); font-weight:600;
+  }
+  .toggle button.active{background:var(--teal); color:#fff;}
+  .budgetlist{background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .budgetrow{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:14px 16px; border-bottom:1px solid var(--line); font-size:14.5px;
+  }
+  .budgetrow:last-child{border-bottom:none;}
+  .budgetrow .label{display:flex; flex-direction:column;}
+  .budgetrow .note{font-size:11.5px; color:var(--ink-soft);}
+  .budgetrow .val{font-family:'JetBrains Mono',monospace; font-weight:600; white-space:nowrap;}
+  .budgetrow.total{background:var(--teal-soft);}
+  .budgetrow.total .val{color:var(--teal); font-size:17px;}
+
+  /* ---- Packing list ---- */
+  .packgrid{display:flex; flex-direction:column; gap:18px;}
+  .packgroup h4{
+    font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-soft); margin-bottom:8px;
+  }
+  .packitem{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1px solid var(--line); border-radius:10px;
+    padding:11px 13px; margin-bottom:6px; cursor:pointer; font-size:14.5px;
+    user-select:none;
+  }
+  .packitem input{accent-color:var(--teal); width:17px; height:17px; flex:0 0 auto;}
+  .packitem.checked{color:var(--ink-soft); text-decoration:line-through; background:var(--parchment-2);}
+  .packprogress{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--teal); margin-bottom:14px;}
+
+  /* ---- City time breakdown ---- */
+  .citylist{display:flex; flex-direction:column; gap:10px;}
+  .citycard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:15px 16px;
+  }
+  .citycard.thin{border-left:4px solid var(--ink-soft);}
+  .citycard.full{border-left:4px solid var(--teal);}
+  .citytop{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:6px;}
+  .citytop .cname{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:20px; text-transform:uppercase;}
+  .citytop .cbadge{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; font-weight:700;
+    padding:4px 9px; border-radius:100px; white-space:nowrap;
+  }
+  .citycard.thin .cbadge{background:var(--parchment-2); color:var(--ink-soft);}
+  .citycard.full .cbadge{background:var(--teal-soft); color:var(--teal);}
+  .citymeta{display:flex; gap:14px; margin-bottom:8px; flex-wrap:wrap;}
+  .citymeta span{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink-soft);}
+  .citymeta b{color:var(--ink); font-weight:700;}
+  .citycard p{margin:0; font-size:13.5px; color:var(--ink-soft);}
+  .whycard{
+    margin-top:20px; background:var(--parchment-2); border:1px dashed var(--ink-soft);
+    border-radius:var(--radius); padding:15px 16px;
+  }
+  .whycard b{display:block; font-family:'Big Shoulders Display',sans-serif; font-size:16px; text-transform:uppercase; margin-bottom:5px;}
+  .whycard p{margin:0 0 8px; font-size:13.5px; color:var(--ink);}
+  .whycard p:last-child{margin-bottom:0;}
+
+  /* ---- Driver rotation ---- */
+  .shiftrule{
+    background:var(--asphalt); color:#fff; border-radius:var(--radius);
+    padding:16px; margin-bottom:20px; font-size:13.5px; line-height:1.6;
+  }
+  .shiftrule b{color:var(--yellow); font-family:'Big Shoulders Display',sans-serif; text-transform:uppercase; display:block; margin-bottom:4px; font-size:15px;}
+  .shiftgrid{display:flex; flex-direction:column; gap:10px;}
+  .shiftcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .shifttop{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; gap:8px;}
+  .shifttop .sleg{font-family:'Big Shoulders Display',sans-serif; font-weight:800; font-size:17px; text-transform:uppercase;}
+  .shifttop .stime{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft);}
+  .roles{display:flex; gap:8px; flex-wrap:wrap;}
+  .role{
+    display:flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
+    padding:6px 10px; border-radius:8px;
+  }
+  .role.driver{background:var(--teal-soft); color:var(--teal);}
+  .role.copilot{background:var(--parchment-2); color:var(--ink-soft);}
+  .role.rest{background:#fff; border:1px dashed var(--line); color:var(--ink-soft);}
+  .splitnote{
+    margin-top:10px; font-size:12px; color:var(--orange); font-weight:600;
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  /* ---- Tips ---- */
+  .tipsgrid{display:flex; flex-direction:column; gap:10px;}
+  .tipcard{
+    background:#fff; border:1px solid var(--line); border-left:4px solid var(--orange);
+    border-radius:10px; padding:13px 15px; font-size:14px;
+  }
+  .tipcard b{display:block; font-family:'Big Shoulders Display',sans-serif; font-size:15px; text-transform:uppercase; margin-bottom:3px;}
+
+  footer{
+    padding:30px 18px 40px; text-align:center; color:var(--ink-soft); font-size:12.5px;
+    background:var(--parchment-2);
+  }
+  footer .a2hs{
+    max-width:340px; margin:0 auto 18px; background:#fff; border:1px solid var(--line);
+    border-radius:var(--radius); padding:14px; font-size:13px; color:var(--ink);
+  }
+  footer .a2hs b{display:block; font-family:'Big Shoulders Display',sans-serif; font-size:15px; margin-bottom:4px;}
+
+  @media(min-width:640px){
+    section{padding:56px 40px;}
+    .hero{padding:64px 40px 48px;}
+  }
+  /* ---- Chat widget ---- */
+  .chatfab{
+    position:fixed; right:18px; bottom:18px; z-index:200;
+    width:56px; height:56px; border-radius:50%;
+    background:var(--asphalt); color:var(--yellow);
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; border:2px solid var(--yellow);
+    box-shadow:0 4px 16px rgba(0,0,0,0.25); cursor:pointer;
+  }
+  .chatpanel{
+    position:fixed; right:0; bottom:0; left:0; z-index:210;
+    max-width:420px; margin:0 auto;
+    height:min(72vh, 640px);
+    background:var(--parchment); border-radius:20px 20px 0 0;
+    box-shadow:0 -8px 30px rgba(0,0,0,0.3);
+    display:none; flex-direction:column;
+    border:1px solid var(--line); border-bottom:none;
+  }
+  .chatpanel.open{display:flex;}
+  .chathead{
+    background:var(--asphalt); color:#fff; padding:14px 16px;
+    border-radius:20px 20px 0 0; display:flex; justify-content:space-between; align-items:center;
+  }
+  .chathead b{font-family:'Big Shoulders Display',sans-serif; text-transform:uppercase; font-size:16px;}
+  .chathead span{font-size:11px; color:#9AA2B2; font-family:'JetBrains Mono',monospace; display:block;}
+  .chatclose{background:none; border:none; color:#fff; font-size:20px; cursor:pointer; padding:4px 8px;}
+  .chatbody{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;}
+  .chatmsg{max-width:82%; padding:9px 12px; border-radius:12px; font-size:13.5px; line-height:1.4;}
+  .chatmsg.user{align-self:flex-end; background:var(--teal); color:#fff; border-bottom-right-radius:3px;}
+  .chatmsg.bot{align-self:flex-start; background:#fff; border:1px solid var(--line); color:var(--ink); border-bottom-left-radius:3px;}
+  .chatmsg.error{align-self:flex-start; background:#FCE8E0; color:var(--orange); border:1px solid var(--orange);}
+  .chatmsg.thinking{align-self:flex-start; background:#fff; border:1px solid var(--line); color:var(--ink-soft); font-style:italic;}
+  .chatform{display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); background:#fff; border-radius:0 0 20px 20px;}
+  .chatform input{
+    flex:1; font-family:'Work Sans',sans-serif; font-size:14px; padding:10px 12px;
+    border:1px solid var(--line); border-radius:100px; background:var(--parchment); color:var(--ink);
+  }
+  .chatform button{
+    background:var(--yellow); color:#1B2430; border:none; border-radius:100px;
+    padding:0 18px; font-weight:700; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer;
+  }
+  @media(max-width:480px){
+    .chatpanel{max-width:100%; height:78vh;}
+  }
+</style>
+</head>
+<body>
+
+<div class="tripbar">
+  <span class="name">SHABAB LOOP</span>
+  <span class="cd mono" id="barCountdown">—</span>
+</div>
+
+<header class="hero">
+  <span class="eyebrow">● FRE 24 JUL – FRE 31 JUL 2026</span>
+  <h1>Shabab Loop<br>Around<br><span>Europa.</span></h1>
+  <span class="banana-tag">🍌 Joshua laver planer som en banat</span>
+  <p class="sub">Hamburg → Berlin → Prag → Interlaken → Paris → Amsterdam → Hamburg. ~3.010 km, fire mand, én camper. Highlights-tour, ikke afslapning.</p>
+
+  <div class="crew">
+    <span class="crewchip">🎮 Musti</span>
+    <span class="crewchip">🕶️ Youssef</span>
+    <span class="crewchip">🧢 LJ</span>
+    <span class="crewchip">🍌 Joshua <small>(planer som en banat)</small></span>
+  </div>
+
+  <div class="statrow">
+    <div><div class="num">7</div><div class="lbl">Dage</div></div>
+    <div><div class="num">5</div><div class="lbl">Byer</div></div>
+    <div><div class="num">~6.2k</div><div class="lbl">Kr/pers</div></div>
+  </div>
+
+  <div class="countdown" id="countdown">
+    <div class="chip"><b id="cdDays">–</b><span>Dage</span></div>
+    <div class="chip"><b id="cdHours">–</b><span>Timer</span></div>
+    <div class="chip"><b id="cdMins">–</b><span>Min</span></div>
+    <div class="chip"><b id="cdSecs">–</b><span>Sek</span></div>
+  </div>
+</header>
+
+<nav class="quicknav">
+  <a href="#rute">Rute</a>
+  <a href="#skema">Skema</a>
+  <a href="#byer">Tid i byerne</a>
+  <a href="#koereplan">Kørerplan</a>
+  <a href="#parkering">Parkering</a>
+  <a href="#camper">Camper</a>
+  <a href="#budget">Budget</a>
+  <a href="#pakke">Pakkeliste</a>
+  <a href="#tips">Tips</a>
+</nav>
+
+<div class="opttoggle">
+  <div class="optbtn active" id="btnOpt1" onclick="setOption(1)">LJs Rute<small>Byer &amp; Bjerge</small></div>
+  <div class="optbtn" id="btnOpt2" onclick="setOption(2)">Youssefs Rute<small>Riviera Run</small></div>
+</div>
+
+<section id="compare">
+  <span class="kicker">Youssefs idé</span>
+  <h2 class="sectitle">To ruter, én stemme</h2>
+  <p class="secdesc">Samme afhentning, samme aflevering (Hamburg, fre 24/7 kl. 16:00 → fre 31/7 kl. 10:00), helt forskellig tur. Skift mellem Option 1 og Option 2 øverst for at se hele ruten, byerne og budgettet for hver.</p>
+
+  <div class="comparegrid">
+
+    <div class="comparecard opt1">
+      <div class="comparetop">
+        <h3>LJs Rute · Byer &amp; Bjerge</h3>
+        <span class="ctag">~3.010 KM</span>
+      </div>
+      <div class="comparepath">Hamburg → Berlin → Prag → Interlaken → Paris → Amsterdam → Hamburg</div>
+      <div class="prosconswrap">
+        <div class="proscons pros">
+          <b>Fordele</b>
+          <ul>
+            <li>4 lande, Berlin + Prag historie/natteliv</li>
+            <li>Schweiziske Alper, unik udsigt i dagslys</li>
+            <li>3 hele fridage + 1 bufferdag</li>
+            <li>Strasbourg skåret fra, hurtigere</li>
+          </ul>
+        </div>
+        <div class="proscons cons">
+          <b>Ulemper</b>
+          <ul>
+            <li>Ekstrem 15t-køredag Prag→Interlaken→Paris</li>
+            <li>Ingen Strasbourg/Petite France længere</li>
+            <li>Berlin + Prag stadig kun aften+morgen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="comparecard opt2">
+      <div class="comparetop">
+        <h3>Youssefs Rute · Riviera Run</h3>
+        <span class="ctag">~3.330 KM</span>
+      </div>
+      <div class="comparepath">Hamburg → Amsterdam → Paris → Nice (+Monaco+Cannes) → Hamburg</div>
+      <div class="prosconswrap">
+        <div class="proscons pros">
+          <b>Fordele</b>
+          <ul>
+            <li>2 hele fridage i Nice/Riviera + 1 i Amsterdam</li>
+            <li>1 indbygget bufferdag i Nice</li>
+            <li>Monaco + Cannes på en dagstur</li>
+            <li>Sommer/strand-vibe, godt til content</li>
+          </ul>
+        </div>
+        <div class="proscons cons">
+          <b>Ulemper</b>
+          <ul>
+            <li>930 km/9t Paris→Nice</li>
+            <li>Ekstrem 14,5t natkørsel Nice→Hamburg</li>
+            <li>Ingen Berlin, Prag eller Schweiz</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="rute">
+  <span class="kicker">Dag for dag</span>
+  <h2 class="sectitle">Ruten</h2>
+  <p class="secdesc">Tryk på en etape for detaljer, eller se hele loopet tegnet op på kortet.</p>
+
+  <div class="opt-block opt1 active" id="rute-opt1">
+  <div class="mapwrap">
+    <iframe
+      src="https://www.google.com/maps?saddr=Hamburg,+Germany&daddr=Berlin,+Germany+to:Prague,+Czechia+to:Interlaken,+Switzerland+to:Paris,+France+to:Amsterdam,+Netherlands+to:Hamburg,+Germany&output=embed"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Shabab Loop rute"></iframe>
+  </div>
+  <a class="mapbtn" href="https://www.google.com/maps/dir/Hamburg,+Germany/Berlin,+Germany/Prague,+Czechia/Interlaken,+Switzerland/Paris,+France/Amsterdam,+Netherlands/Hamburg,+Germany" target="_blank" rel="noopener">🗺️ Åbn hele loopet i Google Maps</a>
+
+  <div class="route">
+
+    <details class="stop" open>
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Opvarmningsrunden</span>
+          <span class="day">Fre 24/7 · Dag 1</span>
+          <span class="city">Hamburg → Berlin</span>
+        </div>
+        <span class="drive mono">290 KM · 3T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Afhentning af camperen i Hamburg kl. 16:00. Pak bilen, kort indkøb, og kør sydøst mod Berlin. Tjek ind på Stellplatz og brug aftenen i Kreuzberg eller Mitte.</p>
+        <div class="tip">Book Stellplatz i Berlin i god tid, august er højsæson.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Hamburg,Germany&destination=Berlin,Germany&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Shabab Unlocked: Level 2</span>
+          <span class="day">Lør 25/7 · Dag 2</span>
+          <span class="city">Berlin → Prag</span>
+        </div>
+        <span class="drive mono">350 KM · 4T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Formiddag med Brandenburger Tor og East Side Gallery, afgang omkring frokost. Ankomst i Prag sidst på eftermiddagen, aftentur over Karlsbroen.</p>
+        <div class="tip">Tjekkiet kræver e-vignet til motorvejene, køb online inden grænsen.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Berlin,Germany&destination=Prague,Czechia&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Den Store Dag</span>
+          <span class="day">Søn 26/7 · Dag 3</span>
+          <span class="city">Prag → Interlaken → Paris</span>
+        </div>
+        <span class="drive mono">1.487 KM · ~15T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Den mest ekstreme dag i hele turen. Direkte fra Prag til Interlaken (857 km, ~8,5t), Harder Kulm-udsigten (2-3t), og derefter videre til Paris (630 km, 6,5t). Strasbourg er skåret fra, I kører direkte og bruger tiden på Schweiz i stedet.</p>
+        <div class="tip">15 timers kørsel i træk er hårdt selv med fire chauffører der skiftes. Planlæg hyppige pauser og skift ofte, ikke kun ved landegrænser. Harder Kulm-billetten koster ca. 44 CHF (~46€) per person retur.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Prague,Czechia&destination=Interlaken,Switzerland&travelmode=driving" target="_blank" rel="noopener">📍 Prag → Interlaken →</a>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Interlaken,Switzerland&destination=Paris,France&travelmode=driving" target="_blank" rel="noopener">📍 Interlaken → Paris →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Selfie & baguette-dagen</span>
+          <span class="day">Man 27/7 · Dag 4</span>
+          <span class="city">Paris</span>
+        </div>
+        <span class="drive mono">0 KM · HELDAG</span>
+      </summary>
+      <div class="stopbody">
+        <p>Jeres eneste rene bydag i denne del af turen. Eiffeltårnet, en gåtur langs Seinen, og Montmartre om aftenen.</p>
+        <div class="tip">Frankrig har betalingsmotorveje (péage), husk kontant/kort i camperen på turen videre.</div>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Paris,France" target="_blank" rel="noopener">📍 Se Paris i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Sidste spurt nord</span>
+          <span class="day">Tir 28/7 · Dag 5</span>
+          <span class="city">Paris → Amsterdam</span>
+        </div>
+        <span class="drive mono">430 KM · 5T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Formiddag i Paris, afgang mod nord. Ankomst i Amsterdam om aftenen, gåtur eller kanaltur i mørket.</p>
+        <div class="tip">Ligesom Paris: parkér camperen i udkanten og tag tog/bus ind til centrum.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Paris,France&destination=Amsterdam,Netherlands&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Bonusdagen #1</span>
+          <span class="day">Ons 29/7 · Dag 6</span>
+          <span class="city">Amsterdam</span>
+        </div>
+        <span class="drive mono">0 KM · HELDAG</span>
+      </summary>
+      <div class="stopbody">
+        <p>Første af to hele fridage i Amsterdam, mulig fordi Strasbourg-stoppet er skåret væk. Jordaan, museer, kanalerne.</p>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Amsterdam,Netherlands" target="_blank" rel="noopener">📍 Se Amsterdam i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop buffer">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Bufferdag</span>
+          <span class="day">Tor 30/7 · Dag 7</span>
+          <span class="city">Amsterdam (reserve)</span>
+        </div>
+        <span class="drive mono">0 KM · RESERVE</span>
+      </summary>
+      <div class="stopbody">
+        <p>Ingen faste planer. Går alt efter planen, er det bare endnu en dag i Amsterdam, Vondelpark eller en rundtur mere. Går noget galt undervejs (Harder Kulm-mega-dagen er den mest sårbare etape), er det her jeres margin.</p>
+        <div class="tip">Sov gerne noget af eftermiddagen uanset hvad, I skal bruge det til natkørslen.</div>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Amsterdam,Netherlands" target="_blank" rel="noopener">📍 Se Amsterdam i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop buffer">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Natkørslen</span>
+          <span class="day">Tor 30/7 nat → Fre 31/7</span>
+          <span class="city">Amsterdam → Hamburg</span>
+        </div>
+        <span class="drive mono">450 KM · 5T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Afgang fra Amsterdam midt om natten (ca. 02:00-02:30 giver 2-3 timers margin), I skiftes som altid. Ankomst Hamburg tidlig morgen, aflevering af camperen kl. 10:00 fredag.</p>
+        <div class="tip">Ingen buffer-dag tilbage i denne version af ruten, hele ugen er brugt. Tjek afleverings- og rengøringskrav inden I lægger ud.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Amsterdam,Netherlands&destination=Hamburg,Germany&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+  </div>
+  </div><!-- /opt1 -->
+
+  <div class="opt-block opt2" id="rute-opt2">
+  <div class="mapwrap">
+    <iframe
+      src="https://www.google.com/maps?saddr=Hamburg,+Germany&daddr=Amsterdam,+Netherlands+to:Paris,+France+to:Nice,+France+to:Hamburg,+Germany&output=embed"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Riviera Run rute"></iframe>
+  </div>
+  <a class="mapbtn" href="https://www.google.com/maps/dir/Hamburg,+Germany/Amsterdam,+Netherlands/Paris,+France/Nice,+France/Hamburg,+Germany" target="_blank" rel="noopener">🗺️ Åbn hele loopet i Google Maps</a>
+
+  <div class="route">
+
+    <details class="stop" open>
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Nordvest Non-Stop</span>
+          <span class="day">Fre 24/7 · Dag 1</span>
+          <span class="city">Hamburg → Amsterdam</span>
+        </div>
+        <span class="drive mono">450 KM · 5T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Afhentning af camperen i Hamburg kl. 16:00. Direkte mod vest til Amsterdam, ankomst sen aften.</p>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Hamburg,Germany&destination=Amsterdam,Netherlands&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Bonusdagen</span>
+          <span class="day">Lør 25/7 · Dag 2</span>
+          <span class="city">Amsterdam</span>
+        </div>
+        <span class="drive mono">0 KM · HELDAG</span>
+      </summary>
+      <div class="stopbody">
+        <p>Hel fridag i Amsterdam, mulig fordi turen sydpå bliver kortet af senere. Jordaan, Vondelpark, kanalerne.</p>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Amsterdam,Netherlands" target="_blank" rel="noopener">📍 Se Amsterdam i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Kanaler & Croissanter</span>
+          <span class="day">Søn 26/7 · Dag 3</span>
+          <span class="city">Amsterdam → Paris</span>
+        </div>
+        <span class="drive mono">430 KM · 5T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Afgang formiddag mod Paris. Ankomst aften, tjek ind på campingplads i udkanten.</p>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Amsterdam,Netherlands&destination=Paris,France&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Solen Kalder</span>
+          <span class="day">Man 27/7 · Dag 4</span>
+          <span class="city">Paris → Nice</span>
+        </div>
+        <span class="drive mono">930 KM · 9T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Den store dag, ligesom Interlaken-etapen i Option 1. I skiftes hele vejen ned gennem Bourgogne, Lyon og Provence. Ankomst Nice sen aften.</p>
+        <div class="tip">9 timer i træk er hårdt selv med skiftende chauffører, overvej et kort benstræk-stop ved Lyon eller Avignon undervejs.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Paris,France&destination=Nice,France&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop buffer">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Bufferdag</span>
+          <span class="day">Tir 28/7 · Dag 5</span>
+          <span class="city">Nice (reserve)</span>
+        </div>
+        <span class="drive mono">0 KM · RESERVE</span>
+      </summary>
+      <div class="stopbody">
+        <p>Ingen faste planer. Går alt efter planen, er det jeres frie Riviera-dag: Vieux Nice, Promenade des Anglais, stranden. Kører I sent ind natten før (930 km-dagen fra Paris er den mest sårbare etape), er det her jeres margin.</p>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Nice,France" target="_blank" rel="noopener">📍 Se Nice i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Monaco & Cannes Loop</span>
+          <span class="day">Ons 29/7 · Dag 6</span>
+          <span class="city">Nice (dagstur)</span>
+        </div>
+        <span class="drive mono">~100 KM · HELDAG</span>
+      </summary>
+      <div class="stopbody">
+        <p>Kort køretur til Monaco (30 min) for Monte Carlo og havnen med superyachts, derefter Cannes (35 min fra Nice) for filmfestival-glamour. Tilbage i Nice til aften, klar til natkørslen.</p>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Nice,France&destination=Monaco&waypoints=Cannes,France&travelmode=driving" target="_blank" rel="noopener">📍 Se loopet i Google Maps →</a>
+      </div>
+    </details>
+
+    <details class="stop buffer">
+      <summary>
+        <div class="datehead">
+          <span class="nickname">Natkørslen Hjem</span>
+          <span class="day">Ons 29/7 nat → Tor 30/7</span>
+          <span class="city">Nice → Hamburg</span>
+        </div>
+        <span class="drive mono">1.420 KM · 14,5T</span>
+      </summary>
+      <div class="stopbody">
+        <p>Direkte kørsel, intet Strasbourg-stop. Afgang fra Nice sent aften/nat (ca. 22:00), I skiftes hele vejen. Ankomst Hamburg torsdag eftermiddag/aften, god margin til aflevering fredag kl. 10:00.</p>
+        <div class="tip">14,5 timer i træk er den længste sammenhængende køretur i nogen af de to ruter. Fordelt på fire chauffører er det overkommeligt, men planlæg rigelige pauser og skift ofte.</div>
+        <a class="maplink" href="https://www.google.com/maps/dir/?api=1&origin=Nice,France&destination=Hamburg,Germany&travelmode=driving" target="_blank" rel="noopener">📍 Se etapen i Google Maps →</a>
+      </div>
+    </details>
+
+  </div>
+  </div><!-- /opt2 -->
+</section>
+
+<section id="skema">
+  <span class="kicker">Er vi på tid?</span>
+  <h2 class="sectitle">Skema &amp; beregner</h2>
+  <p class="secdesc">Planlagte af- og ankomsttider for hver etape. Indtast hvornår I faktisk kører fra et sted, så regner den ud om I er foran, bagud, eller til tiden i forhold til planen. Gemmes automatisk på jeres telefon.</p>
+
+  <div class="opt-block opt1 active" id="skema-opt1">
+  <div class="schedlist" id="schedList1"></div>
+  </div>
+
+  <div class="opt-block opt2" id="skema-opt2">
+  <div class="schedlist" id="schedList2"></div>
+  </div>
+
+  <button class="schedreset" onclick="resetSchedule()">↺ Nulstil alle tider</button>
+</section>
+
+<section id="byer">
+  <span class="kicker">Ærlig snak</span>
+  <h2 class="sectitle">Tid i hver by</h2>
+  <p class="secdesc">Skifter automatisk med rute-valget øverst på siden.</p>
+
+  <div class="opt-block opt1 active" id="byer-opt1">
+  <div class="citylist">
+
+    <div class="citycard thin">
+      <div class="citytop">
+        <span class="cname">Berlin</span>
+        <span class="cbadge">Aften + morgen</span>
+      </div>
+      <div class="citymeta">
+        <span><b>1</b> nat</span>
+        <span><b>~13 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst fre 24/7 ca. 19:00 (afhentning kl. 16:00), afgang lør 25/7 ca. 12:00.</p>
+    </div>
+
+    <div class="citycard thin">
+      <div class="citytop">
+        <span class="cname">Prag</span>
+        <span class="cbadge">Aften + morgen</span>
+      </div>
+      <div class="citymeta">
+        <span><b>1</b> nat</span>
+        <span><b>~11-12 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst lør 25/7 ca. 17:00, tidlig afgang søn 26/7 ca. 06:00 pga. den lange dag foran jer.</p>
+    </div>
+
+    <div class="citycard thin">
+      <div class="citytop">
+        <span class="cname">Interlaken</span>
+        <span class="cbadge">Udsigtsstop</span>
+      </div>
+      <div class="citymeta">
+        <span><b>0</b> nætter</span>
+        <span><b>~2-3 t</b> på stedet</span>
+      </div>
+      <p>Ankomst søn 26/7 ca. 15:30, afgang ca. 18:00. Ingen overnatning, bare Harder Kulm-udsigten midt i den lange køredag.</p>
+    </div>
+
+    <div class="citycard full">
+      <div class="citytop">
+        <span class="cname">Paris</span>
+        <span class="cbadge">1 hel dag</span>
+      </div>
+      <div class="citymeta">
+        <span><b>2</b> nætter</span>
+        <span><b>~22 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst søn 26/7 sent (~00:30 man morgen, efter den 15-timers dag), afgang tir 28/7 ca. 09:00. Den eneste by med en ren fridag i denne del af turen.</p>
+    </div>
+
+    <div class="citycard full">
+      <div class="citytop">
+        <span class="cname">Amsterdam</span>
+        <span class="cbadge">1 hel dag + buffer</span>
+      </div>
+      <div class="citymeta">
+        <span><b>3</b> nætter</span>
+        <span><b>~38 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst tir 28/7 ca. 18:00, hele ons 29/7 fri, tor 30/7 er bufferdag (bruges hvis Harder Kulm-dagen løber sent, ellers bare mere Amsterdam), afgang natten til fredag ca. 02:00.</p>
+    </div>
+
+  </div>
+
+  <div class="whycard">
+    <b>Hvorfor er Strasbourg skåret fra?</b>
+    <p>Prag → Interlaken direkte er kun 857 km, mod 888 km via Strasbourg, altså stort set samme distance. Forskellen er om I bruger 2 dage med en overnatning i Strasbourg, eller 1 brutal dag uden stop.</p>
+    <p>Med fire chauffører der skiftes valgte I den hurtige version. Den frigjorte dag er delt: 1 dag er stadig ren Amsterdam-sightseeing, 1 dag er lagt til side som buffer mod den 15-timers megadag.</p>
+  </div>
+  </div><!-- /byer opt1 -->
+
+  <div class="opt-block opt2" id="byer-opt2">
+  <div class="citylist">
+
+    <div class="citycard thin">
+      <div class="citytop">
+        <span class="cname">Amsterdam</span>
+        <span class="cbadge">1 hel dag</span>
+      </div>
+      <div class="citymeta">
+        <span><b>2</b> nætter</span>
+        <span><b>~25 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst fre 24/7 sen aften (afhentning kl. 16:00), hele lør 25/7 fri, afgang søn 26/7 formiddag.</p>
+    </div>
+
+    <div class="citycard thin">
+      <div class="citytop">
+        <span class="cname">Paris</span>
+        <span class="cbadge">Aften + morgen</span>
+      </div>
+      <div class="citymeta">
+        <span><b>1</b> nat</span>
+        <span><b>~12 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst søn 26/7 aften, tidlig afgang man 27/7 mod Nice, det er en 930 km-dag.</p>
+    </div>
+
+    <div class="citycard full">
+      <div class="citytop">
+        <span class="cname">Nice</span>
+        <span class="cbadge">Buffer + Monaco/Cannes</span>
+      </div>
+      <div class="citymeta">
+        <span><b>2</b> nætter</span>
+        <span><b>~28 t</b> vågne timer</span>
+      </div>
+      <p>Ankomst man 27/7 sen aften, tir 28/7 er bufferdag (bruges hvis Paris→Nice-dagen løber sent, ellers ren stranddag), hele ons 29/7 på Monaco+Cannes-loop, afgang ons 29/7 sent om aftenen til natkørslen hjem.</p>
+    </div>
+
+  </div>
+
+  <div class="whycard">
+    <b>Hvorfor intet Strasbourg-stop på vejen hjem?</b>
+    <p>Nice → Hamburg direkte er 1.420 km, faktisk lidt kortere end at dele det op via Strasbourg (750+720=1.470 km). Med fire chauffører der skiftes er der ingen god grund til at stoppe undervejs.</p>
+    <p>Bufferdagen i Nice er jeres sikkerhedsnet mod den 930 km-dag fra Paris, den mest sårbare etape i hele ruten.</p>
+  </div>
+  </div><!-- /byer opt2 -->
+</section>
+
+<section id="koereplan">
+  <span class="kicker">Hardcore mode</span>
+  <h2 class="sectitle">Kørerplan</h2>
+  <p class="secdesc">Alle fire har kørekort, så vi skiftes hele turen. Reglen er simpel:</p>
+
+  <div class="shiftrule">
+    <b>Altid 2 oppe</b>
+    1 kører, 1 er co-pilot (navigation, musik, holder føreren vågen). De andre 2 sover eller chiller bagi. Vi bytter roller for hver etape, så alle både kører og hviler undervejs, og Joshua kører sit fair share ligesom resten.
+  </div>
+
+  <div class="opt-block opt1 active" id="koereplan-opt1">
+  <div class="shiftgrid">
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 1 · HH → Berlin</span>
+        <span class="stime mono">3T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 LJ kører</span>
+        <span class="role copilot">🧭 Youssef co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 2 · Berlin → Prag</span>
+        <span class="stime mono">4T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Musti kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3a · Prag → Interlaken (1/3)</span>
+        <span class="stime mono">2,8T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Youssef kører</span>
+        <span class="role copilot">🧭 LJ co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3b · Prag → Interlaken (2/3)</span>
+        <span class="stime mono">2,8T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Joshua kører</span>
+        <span class="role copilot">🧭 Musti co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3c · Prag → Interlaken (3/3)</span>
+        <span class="stime mono">2,9T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 LJ kører</span>
+        <span class="role copilot">🧭 Youssef co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">🏔️ Udsigtspause · Harder Kulm</span>
+        <span class="stime mono">2-3T</span>
+      </div>
+      <div class="roles">
+        <span class="role rest">Alle fire ud af bilen, ingen kører</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3d · Interlaken → Paris (1/2)</span>
+        <span class="stime mono">3,25T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Musti kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3e · Interlaken → Paris (2/2)</span>
+        <span class="stime mono">3,25T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Youssef kører</span>
+        <span class="role copilot">🧭 LJ co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 4 · Paris → Amsterdam</span>
+        <span class="stime mono">5T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Joshua kører</span>
+        <span class="role copilot">🧭 Musti co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 5 · Amsterdam → HH</span>
+        <span class="stime mono">5T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 LJ kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 Youssef + Musti</span>
+      </div>
+    </div>
+
+  </div>
+  </div><!-- /koereplan opt1 -->
+
+  <div class="opt-block opt2" id="koereplan-opt2">
+  <div class="shiftgrid">
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 1 · HH → Amsterdam</span>
+        <span class="stime mono">5T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Youssef kører</span>
+        <span class="role copilot">🧭 LJ co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 2 · Amsterdam → Paris</span>
+        <span class="stime mono">5T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Musti kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3a · Paris → Nice (1/3)</span>
+        <span class="stime mono">3T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 LJ kører</span>
+        <span class="role copilot">🧭 Musti co-pilot</span>
+        <span class="role rest">😴 Youssef + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3b · Paris → Nice (2/3)</span>
+        <span class="stime mono">3T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Joshua kører</span>
+        <span class="role copilot">🧭 Youssef co-pilot</span>
+        <span class="role rest">😴 LJ + Musti</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 3c · Paris → Nice (3/3)</span>
+        <span class="stime mono">3T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Youssef kører</span>
+        <span class="role copilot">🧭 LJ co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">🏖️ Nice · Fridag</span>
+        <span class="stime mono">0T</span>
+      </div>
+      <div class="roles">
+        <span class="role rest">Ingen kører, alle på stranden</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 4 · Monaco + Cannes loop</span>
+        <span class="stime mono">2T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Musti kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 5a · Nice → HH (1/4)</span>
+        <span class="stime mono">3,6T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 LJ kører</span>
+        <span class="role copilot">🧭 Youssef co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 5b · Nice → HH (2/4)</span>
+        <span class="stime mono">3,6T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Joshua kører</span>
+        <span class="role copilot">🧭 Musti co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 5c · Nice → HH (3/4)</span>
+        <span class="stime mono">3,6T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Youssef kører</span>
+        <span class="role copilot">🧭 LJ co-pilot</span>
+        <span class="role rest">😴 Musti + Joshua</span>
+      </div>
+    </div>
+
+    <div class="shiftcard">
+      <div class="shifttop">
+        <span class="sleg">Etape 5d · Nice → HH (4/4)</span>
+        <span class="stime mono">3,7T</span>
+      </div>
+      <div class="roles">
+        <span class="role driver">🚗 Musti kører</span>
+        <span class="role copilot">🧭 Joshua co-pilot</span>
+        <span class="role rest">😴 LJ + Youssef</span>
+      </div>
+    </div>
+
+  </div>
+  </div><!-- /koereplan opt2 -->
+</section>
+
+<section id="parkering">
+  <span class="kicker">Parker fornuftigt</span>
+  <h2 class="sectitle">Hvor stiller vi camperen?</h2>
+  <p class="secdesc">Tættest på centrum uden at betale hotel-priser, rigtige Stellplätze/campingpladser til autocampere, ikke gadeparkering. Skifter med rute-valget øverst.</p>
+
+  <div class="opt-block opt1 active" id="parkering-opt1">
+  <div class="parklist">
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Berlin</span><span class="pname">Stellplatz Berlin-Mitte</span></div>
+        <span class="pprice">~20-25€/nat</span>
+      </div>
+      <p>95 pladser midt i Mitte, gå- eller cykelafstand til Alexanderplatz, Brandenburger Tor og Museumsinsel. Direkte adgang til offentlig transport ved pladsen.</p>
+      <div class="parklinks">
+        <a class="book" href="https://wohnmobiloase.com/" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Wohnmobilstellplatz+Berlin+Mitte" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Prag</span><span class="pname">Praguecamp</span></div>
+        <span class="pprice">~25-30€/nat</span>
+      </div>
+      <p>Ligger på en ø i Vltava, kun 1 km fra centrum. 15 minutter med bus/sporvogn, eller gå direkte til den gamle bydel.</p>
+      <div class="parklinks">
+        <a class="book" href="https://www.praguecamp.cz/en/" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Praguecamp+Troja+Prague" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Paris</span><span class="pname">Camping de Paris</span></div>
+        <span class="pprice">~35-45€/nat</span>
+      </div>
+      <p>I Bois de Boulogne, 16. arrondissement, ved Seinen. Gratis shuttlebus til Metro Porte Maillot, derfra direkte ind til centrum. Dyrere end de andre, men Paris har ikke billigere reelle alternativer for en camper.</p>
+      <div class="parklinks">
+        <a class="book" href="https://www.campingparis.fr/" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Camping+de+Paris+Bois+de+Boulogne" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Amsterdam</span><span class="pname">Camperpark Amsterdam</span></div>
+        <span class="pprice">~25-30€/nat</span>
+      </div>
+      <p>Ved Gaasperplas, metrolinje 53 lige ved siden af pladsen, kører direkte til Amsterdam Centraal på cirka 15 minutter.</p>
+      <div class="parklinks">
+        <a class="book" href="https://camperparkamsterdam.nl/en/reservation" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Camperpark+Amsterdam+Gaasperplas" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+  </div>
+  <p class="parknote">Priser er cirka-priser og ændrer sig med sæsonen, book direkte hos hver plads for korrekt pris og ledighed. August er højsæson i alle fem byer, book så tidligt som muligt.</p>
+  </div><!-- /parkering opt1 -->
+
+  <div class="opt-block opt2" id="parkering-opt2">
+  <div class="parklist">
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Amsterdam</span><span class="pname">Camperpark Amsterdam</span></div>
+        <span class="pprice">~25-30€/nat</span>
+      </div>
+      <p>Ved Gaasperplas, metrolinje 53 lige ved siden af pladsen, kører direkte til Amsterdam Centraal på cirka 15 minutter.</p>
+      <div class="parklinks">
+        <a class="book" href="https://camperparkamsterdam.nl/en/reservation" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Camperpark+Amsterdam+Gaasperplas" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Paris</span><span class="pname">Camping de Paris</span></div>
+        <span class="pprice">~35-45€/nat</span>
+      </div>
+      <p>I Bois de Boulogne, 16. arrondissement, ved Seinen. Gratis shuttlebus til Metro Porte Maillot.</p>
+      <div class="parklinks">
+        <a class="book" href="https://www.campingparis.fr/" target="_blank" rel="noopener">🎫 Book plads →</a>
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Camping+de+Paris+Bois+de+Boulogne" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+    <div class="parkcard">
+      <div class="parktop">
+        <div><span class="pcity">Nice</span><span class="pname">Aire Boulevard Franck Pilatte</span></div>
+        <span class="pprice">~15-25€/nat</span>
+      </div>
+      <p>Kommunal aire lige i Nice selv, tæt på havnen og en park, gåafstand til Vieux Nice og Promenade des Anglais. Ingen forudbooking, betales på stedet, kom gerne tidligt på dagen i august.</p>
+      <div class="parklinks">
+        <a class="locate" href="https://www.google.com/maps/search/?api=1&query=Aire+camping-car+Boulevard+Franck+Pilatte+Nice" target="_blank" rel="noopener">📍 Google Maps →</a>
+      </div>
+    </div>
+
+
+  </div>
+  <p class="parknote">Nice-pladsen kan ikke forudbookes online, den er kommunal og fungerer først-til-mølle. Overvej at ankomme før klokken 18 i august.</p>
+  </div><!-- /parkering opt2 -->
+</section>
+
+<section id="camper" class="camperwrap">
+  <span class="kicker">Køretøjet</span>
+  <h2 class="sectitle">Camperen</h2>
+  <p class="secdesc">Comfort Space Select fra Indie Campers, afhentes og afleveres i Hamburg.</p>
+
+  <div class="campercard">
+    <div class="campertop">
+      <div>
+        <span class="badge">BOOKET</span>
+        <h3>Comfort Space Select</h3>
+      </div>
+    </div>
+    <div class="specs">
+      <span>4 personer</span>
+      <span>4 senge</span>
+      <span>Automatgear</span>
+      <span>Bad &amp; toilet</span>
+      <span>Privat soveafdeling</span>
+      <span>★ 4.9 (500+)</span>
+    </div>
+    <p style="font-size:13px; color:#9AA2B2; margin:0 0 14px;">Afhentning: Hamburg – Indie Campers Pick-Up Center</p>
+    <div class="specs">
+      <span>Rental €1.239,70</span>
+      <span>Extras/protection/km €415,70</span>
+      <span>Service/forsikring €452,34</span>
+    </div>
+    <div class="priceline">
+      <div>
+        <div class="amount">€2.107,74</div>
+        <div class="sub">reel checkout-pris · alle 4 rejsende</div>
+      </div>
+      <div class="sub" style="text-align:right;">≈ €301/dag<br>≈ 2.245 kr/dag</div>
+    </div>
+    <a class="mapbtn" style="display:flex; justify-content:center; margin-top:16px; margin-bottom:0;" href="https://indiecampers.com/rent-an-rv/hamburg/hamburg/2026-07-26/2026-08-01/eu-comfort-space-4-auto-select/offer/special" target="_blank" rel="noopener">🚐 Book camperen hos Indie Campers</a>
+  </div>
+</section>
+
+<section id="budget">
+  <span class="kicker">Hvad koster det</span>
+  <h2 class="sectitle">Budget</h2>
+  <p class="secdesc">Estimat for hele turen. Skift mellem gruppe og per person, budgettet følger den valgte rute-option øverst på siden.</p>
+
+  <div class="toggle">
+    <button id="btnGroup" class="active">Gruppe</button>
+    <button id="btnPerson">Per person</button>
+  </div>
+
+  <div class="budgetlist" id="budgetList"></div>
+</section>
+
+<section id="pakke">
+  <span class="kicker">Inden afgang</span>
+  <h2 class="sectitle">Pakkeliste</h2>
+  <p class="secdesc">Trykkes af, gemmes automatisk på jeres telefon.</p>
+
+  <div class="packprogress" id="packProgress">0 / 0 pakket</div>
+  <div class="packgrid" id="packGrid"></div>
+</section>
+
+<section id="tips">
+  <span class="kicker">God at vide</span>
+  <h2 class="sectitle">Praktiske tips</h2>
+  <div class="tipsgrid">
+    <div class="tipcard"><b>Vignetter</b>Tjekkiet: e-vignet online inden grænsen. Frankrig: betalingsmotorveje undervejs, hav kort/kontant klar.</div>
+    <div class="tipcard"><b>Stellplätze bookes tidligt</b>August er højsæson i alle byer på begge ruter. Book campingpladser og aires i god tid, uanset hvilken rute I vælger.</div>
+    <div class="tipcard"><b>Byerne kører I ikke ind i</b>Paris og Amsterdam: parkér camperen i udkanten og brug offentlig transport ind til centrum.</div>
+    <div class="tipcard"><b>Depositum</b>Tjek om kaution/forsikring er inkluderet i de €1.488, det er den ofte ikke.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="a2hs">
+    <b>Gem på hjemmeskærmen</b>
+    Del-ikonet nederst i Safari → "Føj til hjemmeskærm". Så ligger turen ét tryk væk hele ugen.
+  </div>
+  Shabab Loop Around Europa · Uge 31, 2026
+</footer>
+
+<script>
+  // ---- Countdown ----
+  const target = new Date("2026-07-24T16:00:00+02:00").getTime();
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick(){
+    const now = Date.now();
+    let diff = target - now;
+    const bar = document.getElementById('barCountdown');
+    if(diff <= 0){
+      document.getElementById('cdDays').textContent = '00';
+      document.getElementById('cdHours').textContent = '00';
+      document.getElementById('cdMins').textContent = '00';
+      document.getElementById('cdSecs').textContent = '00';
+      bar.textContent = 'PÅ TUR';
+      return;
+    }
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000); diff -= h*3600000;
+    const m = Math.floor(diff/60000); diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    document.getElementById('cdDays').textContent = d;
+    document.getElementById('cdHours').textContent = pad(h);
+    document.getElementById('cdMins').textContent = pad(m);
+    document.getElementById('cdSecs').textContent = pad(s);
+    bar.textContent = d + 'd ' + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ---- Route/budget option toggle ----
+  let currentOption = 1;
+  function setOption(n){
+    currentOption = n;
+    document.getElementById('btnOpt1').classList.toggle('active', n===1);
+    document.getElementById('btnOpt2').classList.toggle('active', n===2);
+    document.querySelectorAll('.opt-block.opt1').forEach(el => el.classList.toggle('active', n===1));
+    document.querySelectorAll('.opt-block.opt2').forEach(el => el.classList.toggle('active', n===2));
+    renderBudget(currentBudgetMode);
+  }
+
+  // ---- Budget data ----
+  const budget1 = [
+    {label:'Camper (7 dage, reel pris)', note:'Comfort Space Select, Indie Campers checkout', group:2107.74},
+    {label:'Brændstof', note:'~3.010 km, diesel', group:567},
+    {label:'Overnatning', note:'7 nætter (Berlin, Prag, 2× Paris, 3× Amsterdam)', group:214},
+    {label:'Vejafgifter', note:'Tjekkiet + Frankrig + Schweiz-vignet', group:157},
+    {label:'Mad', note:'4 pers × 7 dage', group:560},
+    {label:'Byoplevelser', note:'Entré, museer, transport', group:500},
+  ];
+  const budget2 = [
+    {label:'Camper (7 dage, reel pris)', note:'Comfort Space Select, Indie Campers checkout', group:2107.74},
+    {label:'Brændstof', note:'~3.330 km, diesel', group:628},
+    {label:'Overnatning', note:'6 nætter (2× Amsterdam, Paris, 3× Nice)', group:156},
+    {label:'Vejafgifter', note:'Fransk péage, lang strækning', group:180},
+    {label:'Mad', note:'4 pers × 7 dage', group:560},
+    {label:'Byoplevelser', note:'Entré, strand, Monaco-parkering', group:500},
+  ];
+  const FX = 7.46;
+  let currentBudgetMode = 'group';
+  function renderBudget(mode){
+    currentBudgetMode = mode;
+    const budget = currentOption === 2 ? budget2 : budget1;
+    const el = document.getElementById('budgetList');
+    const div = mode === 'person' ? 4 : 1;
+    let total = 0;
+    let html = '';
+    budget.forEach(row => {
+      const eur = row.group / div;
+      total += eur;
+      html += `<div class="budgetrow">
+        <div class="label"><span>${row.label}</span><span class="note">${row.note}</span></div>
+        <div class="val">€${Math.round(eur)}<br><span style="font-weight:400;color:var(--ink-soft);font-size:11.5px;">${Math.round(eur*FX).toLocaleString('da-DK')} kr</span></div>
+      </div>`;
+    });
+    html += `<div class="budgetrow total">
+      <div class="label"><span>I alt${mode==='person' ? ' · per person' : ' · hele gruppen'}</span></div>
+      <div class="val">€${Math.round(total)}<br><span style="font-weight:600;font-size:11.5px;">${Math.round(total*FX).toLocaleString('da-DK')} kr</span></div>
+    </div>`;
+    el.innerHTML = html;
+  }
+  renderBudget('group');
+  document.getElementById('btnGroup').addEventListener('click', function(){
+    this.classList.add('active');
+    document.getElementById('btnPerson').classList.remove('active');
+    renderBudget('group');
+  });
+  document.getElementById('btnPerson').addEventListener('click', function(){
+    this.classList.add('active');
+    document.getElementById('btnGroup').classList.remove('active');
+    renderBudget('person');
+  });
+
+  // ---- Skema & beregner ----
+  // Planlagt afgang (lokal tid, ISO uden tidszone) + varighed i timer
+  const schedule1 = [
+    {id:'o1_1', name:'Hamburg → Berlin', depart:'2026-07-24T16:00', dur:3},
+    {id:'o1_2', name:'Berlin → Prag', depart:'2026-07-25T13:00', dur:4},
+    {id:'o1_3', name:'Prag → Interlaken', depart:'2026-07-26T06:00', dur:8.5},
+    {id:'o1_4', name:'Interlaken → Paris', depart:'2026-07-26T17:00', dur:6.5},
+    {id:'o1_5', name:'Paris → Amsterdam', depart:'2026-07-28T12:00', dur:5},
+    {id:'o1_6', name:'Amsterdam → Hamburg (natkørsel)', depart:'2026-07-31T02:00', dur:5},
+  ];
+  const schedule2 = [
+    {id:'o2_1', name:'Hamburg → Amsterdam', depart:'2026-07-24T16:00', dur:5},
+    {id:'o2_2', name:'Amsterdam → Paris', depart:'2026-07-26T09:00', dur:5},
+    {id:'o2_3', name:'Paris → Nice', depart:'2026-07-27T06:00', dur:9},
+    {id:'o2_4', name:'Nice → Monaco → Cannes → Nice', depart:'2026-07-29T10:00', dur:2},
+    {id:'o2_5', name:'Nice → Hamburg (natkørsel)', depart:'2026-07-29T22:00', dur:14.5},
+  ];
+
+  function fmtTime(d){
+    return d.toLocaleString('da-DK', {weekday:'short', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
+  }
+  function fmtHM(mins){
+    const h = Math.floor(Math.abs(mins)/60), m = Math.abs(mins)%60;
+    return (h>0 ? h+'t ' : '') + m + 'min';
+  }
+
+  function renderSchedule(list, containerId, storagePrefix){
+    const container = document.getElementById(containerId);
+    let html = '';
+    list.forEach(leg => {
+      const plannedDepart = new Date(leg.depart);
+      const plannedArrive = new Date(plannedDepart.getTime() + leg.dur*3600000);
+      const inputId = storagePrefix + '_' + leg.id;
+      html += `<div class="schedcard">
+        <div class="schedtop">
+          <div><span class="sname">${leg.name}</span><span class="sdate">${leg.dur}t kørsel</span></div>
+        </div>
+        <div class="schedplan">
+          <div>Planlagt afgang<br><b>${fmtTime(plannedDepart)}</b></div>
+          <div>Planlagt ankomst<br><b>${fmtTime(plannedArrive)}</b></div>
+        </div>
+        <div class="schedinput">
+          <label for="${inputId}">Faktisk afgangstidspunkt</label>
+          <input type="datetime-local" id="${inputId}">
+        </div>
+        <div class="schedstatus" id="${inputId}_status"></div>
+      </div>`;
+    });
+    container.innerHTML = html;
+
+    list.forEach(leg => {
+      const inputId = storagePrefix + '_' + leg.id;
+      const input = document.getElementById(inputId);
+      const statusEl = document.getElementById(inputId + '_status');
+      const saved = localStorage.getItem(inputId);
+      if(saved){ input.value = saved; }
+      function update(){
+        if(!input.value){ statusEl.className = 'schedstatus'; localStorage.removeItem(inputId); return; }
+        localStorage.setItem(inputId, input.value);
+        const plannedDepart = new Date(leg.depart);
+        const plannedArrive = new Date(plannedDepart.getTime() + leg.dur*3600000);
+        const actualDepart = new Date(input.value);
+        const actualArrive = new Date(actualDepart.getTime() + leg.dur*3600000);
+        const deltaMin = Math.round((actualArrive - plannedArrive) / 60000);
+        if(Math.abs(deltaMin) <= 10){
+          statusEl.className = 'schedstatus ontime';
+          statusEl.textContent = '✅ Til tiden, forventet ankomst ' + fmtTime(actualArrive);
+        } else if(deltaMin > 0){
+          statusEl.className = 'schedstatus late';
+          statusEl.textContent = '🐢 ' + fmtHM(deltaMin) + ' bagud, forventet ankomst ' + fmtTime(actualArrive);
+        } else {
+          statusEl.className = 'schedstatus early';
+          statusEl.textContent = '⚡ ' + fmtHM(deltaMin) + ' foran, forventet ankomst ' + fmtTime(actualArrive);
+        }
+      }
+      input.addEventListener('change', update);
+      update();
+    });
+  }
+
+  function resetSchedule(){
+    [...schedule1, ...schedule2].forEach(leg => {
+      localStorage.removeItem('o1_' + leg.id);
+      localStorage.removeItem('o2_' + leg.id);
+    });
+    renderSchedule(schedule1, 'schedList1', 'o1');
+    renderSchedule(schedule2, 'schedList2', 'o2');
+  }
+
+  renderSchedule(schedule1, 'schedList1', 'o1');
+  renderSchedule(schedule2, 'schedList2', 'o2');
+
+  // ---- Packing list ----
+  const packing = {
+    'Papirer & penge': ['Pas / ID', 'Kørekort', 'EU-sygesikringskort', 'Rejseforsikring', 'Kontanter (EUR + CZK)'],
+    'Camperen': ['CEE-strømadapter', 'Forlængerledning', 'Drikkevandsslange', 'Kemisk toilet-væske', 'Offline kort (app)'],
+    'Tøj & udstyr': ['Regnjakke', 'Gode gåsko', 'Badetøj'],
+    'Andet': ['Powerbank', 'Universal stikadapter', 'Kortspil / playlist']
+  };
+  const grid = document.getElementById('packGrid');
+  let allItems = [];
+  Object.entries(packing).forEach(([group, items]) => {
+    const g = document.createElement('div');
+    g.className = 'packgroup';
+    g.innerHTML = `<h4>${group}</h4>`;
+    items.forEach(item => {
+      const id = 'pk_' + item.replace(/[^a-zA-Z0-9]/g,'_');
+      allItems.push(id);
+      const row = document.createElement('label');
+      row.className = 'packitem';
+      row.id = 'row_' + id;
+      row.innerHTML = `<input type="checkbox" id="${id}"> <span>${item}</span>`;
+      g.appendChild(row);
+    });
+    grid.appendChild(g);
+  });
+
+  function updateProgress(){
+    const checked = allItems.filter(id => document.getElementById(id).checked).length;
+    document.getElementById('packProgress').textContent = checked + ' / ' + allItems.length + ' pakket';
+  }
+
+  allItems.forEach(id => {
+    const saved = localStorage.getItem(id) === '1';
+    const cb = document.getElementById(id);
+    cb.checked = saved;
+    if(saved) document.getElementById('row_' + id).classList.add('checked');
+    cb.addEventListener('change', function(){
+      localStorage.setItem(id, this.checked ? '1' : '0');
+      document.getElementById('row_' + id).classList.toggle('checked', this.checked);
+      updateProgress();
+    });
+  });
+  updateProgress();
+</script>
+
+<div class="chatfab" id="chatFab" onclick="toggleChat()">💬</div>
+
+<div class="chatpanel" id="chatPanel">
+  <div class="chathead">
+    <div>
+      <b>Shabab Assistant</b>
+      <span>Kender ruten, ikke live-data</span>
+    </div>
+    <button class="chatclose" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chatbody" id="chatBody">
+    <div class="chatmsg bot">Yo! Jeg kender begge ruteforslag, budgettet og planen. Spørg løs, men husk jeg ikke har live trafik/vejr/åbningstider.</div>
+  </div>
+  <form class="chatform" id="chatForm" onsubmit="sendChat(event)">
+    <input type="text" id="chatInput" placeholder="Spørg om ruten..." autocomplete="off">
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+  let chatHistory = [];
+
+  function toggleChat(){
+    document.getElementById('chatPanel').classList.toggle('open');
+  }
+
+  function addChatBubble(text, cls){
+    const body = document.getElementById('chatBody');
+    const div = document.createElement('div');
+    div.className = 'chatmsg ' + cls;
+    div.textContent = text;
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  async function sendChat(e){
+    e.preventDefault();
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = '';
+    addChatBubble(text, 'user');
+    chatHistory.push({role:'user', content:text});
+    const thinking = addChatBubble('Tænker...', 'thinking');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({messages: chatHistory})
+      });
+      const data = await res.json();
+      thinking.remove();
+      if(!res.ok){
+        addChatBubble(data.error || 'Noget gik galt.', 'error');
+        return;
+      }
+      addChatBubble(data.reply, 'bot');
+      chatHistory.push({role:'assistant', content:data.reply});
+    } catch(err){
+      thinking.remove();
+      addChatBubble('Kunne ikke få forbindelse til serveren.', 'error');
+    }
+  }
+</script>
+
+</body>
+</html>
