@@ -1718,12 +1718,12 @@
   <div class="chathead">
     <div>
       <b>Shabab Assistant</b>
-      <span>Kender ruten, ikke live-data</span>
+      <span>Kender ruten + kan søge på nettet</span>
     </div>
     <button class="chatclose" onclick="toggleChat()">✕</button>
   </div>
   <div class="chatbody" id="chatBody">
-    <div class="chatmsg bot">Yo! Jeg kender begge ruteforslag, budgettet og planen. Spørg løs, men husk jeg ikke har live trafik/vejr/åbningstider.</div>
+    <div class="chatmsg bot">Eow g! Jeg kender begge ruter, budgettet og hele planen, wallahi. Spørg løs, jeg kan sågar søge på nettet nu.</div>
   </div>
   <form class="chatform" id="chatForm" onsubmit="sendChat(event)">
     <input type="text" id="chatInput" placeholder="Spørg om ruten..." autocomplete="off">
@@ -1733,6 +1733,12 @@
 
 <script>
   let chatHistory = [];
+  let chatPasscode = localStorage.getItem('shabab_chat_passcode') || '';
+  let passcodeRequired = false;
+
+  fetch('/api/chat-config').then(r => r.json()).then(cfg => {
+    passcodeRequired = cfg.passcodeRequired;
+  }).catch(() => {});
 
   function toggleChat(){
     document.getElementById('chatPanel').classList.toggle('open');
@@ -1748,11 +1754,44 @@
     return div;
   }
 
+  async function ensurePasscode(){
+    if(!passcodeRequired) return true;
+    if(chatPasscode) return true;
+    const entered = prompt('Adgangskode til Shabab Assistant (spørg LJ hvis du ikke har den):');
+    if(!entered) return false;
+    chatPasscode = entered.trim();
+    localStorage.setItem('shabab_chat_passcode', chatPasscode);
+    return true;
+  }
+
+  // Læser faktiske afgangstider fra Skema & beregner-sektionen (samme localStorage-nøgler),
+  // så chatten kan se om I er foran/bagud, hvis I har tastet noget ind.
+  function getScheduleStatusSummary(){
+    const lines = [];
+    function checkList(list, prefix, label){
+      if(typeof list === 'undefined') return;
+      list.forEach(leg => {
+        const key = prefix + '_' + leg.id;
+        const val = localStorage.getItem(key);
+        if(val){
+          lines.push(label + ' – ' + leg.name + ': faktisk afgang ' + val);
+        }
+      });
+    }
+    checkList(typeof schedule1 !== 'undefined' ? schedule1 : undefined, 'o1', 'LJs Rute');
+    checkList(typeof schedule2 !== 'undefined' ? schedule2 : undefined, 'o2', 'Youssefs Rute');
+    return lines.join('\n');
+  }
+
   async function sendChat(e){
     e.preventDefault();
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
     if(!text) return;
+
+    const ok = await ensurePasscode();
+    if(!ok) return;
+
     input.value = '';
     addChatBubble(text, 'user');
     chatHistory.push({role:'user', content:text});
@@ -1761,11 +1800,20 @@
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({messages: chatHistory})
+        headers: {
+          'Content-Type': 'application/json',
+          'x-chat-passcode': chatPasscode
+        },
+        body: JSON.stringify({messages: chatHistory, scheduleStatus: getScheduleStatusSummary()})
       });
       const data = await res.json();
       thinking.remove();
+      if(res.status === 401){
+        addChatBubble('Forkert adgangskode. Prøv igen.', 'error');
+        localStorage.removeItem('shabab_chat_passcode');
+        chatPasscode = '';
+        return;
+      }
       if(!res.ok){
         addChatBubble(data.error || 'Noget gik galt.', 'error');
         return;

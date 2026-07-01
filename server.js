@@ -11,6 +11,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5';
+const CHAT_PASSCODE = process.env.CHAT_PASSCODE; // delt adgangskode, kun I fire kender den
+
+// ---- Simpel rate limiting (ingen ekstra pakke nødvendig) ----
+// Begrænser hvor mange chat-requests én IP-adresse kan sende, uafhængigt af adgangskoden.
+// Beskytter mod at nogen (selv med koden) spammer den i stykker og løber prisen op.
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutter
+const RATE_LIMIT_MAX = 30; // max 30 requests per IP per vindue
+const rateLimitStore = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitStore.get(ip) || { count: 0, windowStart: now };
+  if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    entry.count = 0;
+    entry.windowStart = now;
+  }
+  entry.count += 1;
+  rateLimitStore.set(ip, entry);
+  return entry.count > RATE_LIMIT_MAX;
+}
+
+// Ryd gamle IP'er op en gang i mellem, så hukommelsen ikke vokser uendeligt
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitStore) {
+    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) rateLimitStore.delete(ip);
+  }
+}, RATE_LIMIT_WINDOW_MS);
 
 // Trip context so the assistant actually knows what it's talking about.
 // Edit this if the route, dates, or plan changes.
@@ -26,9 +54,10 @@ Fakta om turen:
 - Budget er ca. €4.100-4.150 for hele gruppen (~1.020-1.035 € per person), inkl. camperleje (reel checkout-pris €2.107,74), brændstof, overnatning, vejafgifter, mad og oplevelser.
 
 Din rolle:
-- Svar kort, venligt og praktisk på dansk (medmindre der spørges på et andet sprog).
-- Du kender planen ovenfor, men du har IKKE adgang til live data som vejr, trafik, åbningstider eller aktuelle priser. Sig det ærligt, og foreslå at de tjekker Google Maps, officielle hjemmesider, eller ringer til stedet for opdateret info.
+- Du snakker som en ægte shabab fra gaden, ikke som en stiv assistent. Brug naturligt slang som "eow", "wallah/wallahi", "sårn", "cwala", "min bror/g", "ej hva", og lignende, der hvor det passer naturligt ind i sætningen. Ikke tvunget i hver eneste sætning, men det skal føles ægte.
+- Du kender planen ovenfor. Du har nu også adgang til at søge på nettet, brug det til spørgsmål om vejr, åbningstider, aktuelle priser, eller andet der kan have ændret sig. Sig fra hvis du er i tvivl om noget, selv efter en søgning.
 - Du kan hjælpe med at omregne tider, foreslå pauser, svare på praktiske spørgsmål om ruten, eller bare være en hjælpsom rejsefælle under turen.
+- VIGTIGT: Selvom du snakker med slang, skal konkrete facts (tider, km, priser, datoer) altid være klare og korrekte. Slang på stilen, ikke på substansen.
 - Hold svar korte og mobilvenlige, folk læser dette på telefonen i en bevæget bil.`;
 
 app.post('/api/chat', async (req, res) => {
@@ -36,7 +65,21 @@ app.post('/api/chat', async (req, res) => {
     return res.status(500).json({ error: 'Serveren mangler en ANTHROPIC_API_KEY miljøvariabel. Sæt den i Railway under Variables.' });
   }
 
-  const { messages } = req.body || {};
+  // Adgangskode-tjek: kun til for dem der kender koden
+  if (CHAT_PASSCODE) {
+    const providedPasscode = req.headers['x-chat-passcode'];
+    if (providedPasscode !== CHAT_PASSCODE) {
+      return res.status(401).json({ error: 'Forkert adgangskode.' });
+    }
+  }
+
+  // Rate limiting: beskyt mod spam, selv med korrekt adgangskode
+  const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress || 'unknown';
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: 'For mange beskeder for hurtigt. Vent lidt og prøv igen.' });
+  }
+
+  const { messages, scheduleStatus } = req.body || {};
   if (!Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Ingen beskeder modtaget.' });
   }
@@ -46,6 +89,18 @@ app.post('/api/chat', async (req, res) => {
     role: m.role === 'assistant' ? 'assistant' : 'user',
     content: String(m.content || '').slice(0, 4000),
   }));
+
+  // Dynamisk system-prompt: dagens dato/tid + jeres egne indtastede tider fra Skema-sektionen (hvis nogen)
+  const now = new Date();
+  const nowStr = now.toLocaleString('da-DK', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin',
+  });
+  let dynamicSystem = SYSTEM_PROMPT + `\n\nDags dato og tid lige nu: ${nowStr} (Hamborg-tid). Brug det til at regne dage/timer til afgang, forsinkelser osv.`;
+
+  if (typeof scheduleStatus === 'string' && scheduleStatus.trim()) {
+    dynamicSystem += `\n\nStatus fra deres eget "Skema & beregner"-værktøj (faktiske indtastede afgangstider, kan være ufuldstændigt):\n${scheduleStatus.slice(0, 2000)}`;
+  }
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -57,9 +112,10 @@ app.post('/api/chat', async (req, res) => {
       },
       body: JSON.stringify({
         model: MODEL,
-        max_tokens: 1024,
-        system: SYSTEM_PROMPT,
+        max_tokens: 1536,
+        system: dynamicSystem,
         messages: trimmed,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
       }),
     });
 
@@ -70,12 +126,22 @@ app.post('/api/chat', async (req, res) => {
     }
 
     const data = await response.json();
-    const textBlock = (data.content || []).find((b) => b.type === 'text');
-    res.json({ reply: textBlock ? textBlock.text : 'Intet svar modtaget.' });
+    // Med web-søgning kan svaret bestå af flere tekst-blokke, saml dem alle.
+    const reply = (data.content || [])
+      .filter((b) => b.type === 'text')
+      .map((b) => b.text)
+      .join('\n')
+      .trim();
+    res.json({ reply: reply || 'Intet svar modtaget.' });
   } catch (err) {
     console.error('Server error:', err);
     res.status(500).json({ error: 'Der skete en fejl på serveren.' });
   }
+});
+
+// Fortæl frontend'en om der kræves en adgangskode, uden at afsløre selve koden
+app.get('/api/chat-config', (req, res) => {
+  res.json({ passcodeRequired: Boolean(CHAT_PASSCODE) });
 });
 
 // Simple health check, useful for Railway
@@ -91,5 +157,8 @@ app.listen(PORT, () => {
   console.log(`Shabab Loop server kører på port ${PORT}`);
   if (!ANTHROPIC_API_KEY) {
     console.warn('ADVARSEL: ANTHROPIC_API_KEY er ikke sat, chat-funktionen virker ikke endnu.');
+  }
+  if (!CHAT_PASSCODE) {
+    console.warn('ADVARSEL: CHAT_PASSCODE er ikke sat, chatten er åben for alle der finder linket.');
   }
 });
